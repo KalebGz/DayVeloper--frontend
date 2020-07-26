@@ -1,0 +1,38 @@
+.title {
+    text-align: center;
+}
+div.top {
+    border: 50px outset red;
+    background-color: lightblue;    
+    text-align: center;
+    height: 200px;
+    width: 90%;
+}
+div.middle {
+    border: 50px outset red;
+    background-color: lightblue;    
+    text-align: center;
+    height: 200px;
+    width: 90%;
+}
+div.bottom {
+    border: 50px outset red;
+    background-color: lightblue;    
+    text-align: center;
+    height: 200px;
+    width: 90%;
+}
+div.left{
+    float: left;
+    height: 200px;
+    width: 49.5%;
+    border: 3px outset black;
+    background-color: lightblue;    
+}
+div.right{
+    float: right;
+    height: 200px;
+    width: 49.5%; 
+    border: 3px outset black;
+    background-color: lightblue;    
+}
