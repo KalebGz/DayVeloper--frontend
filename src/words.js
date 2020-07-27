@@ -7,8 +7,8 @@ class Word{
     render(){
         
         const wordPanel = document.querySelector("div.words")
-        if(qs('h2.renderedWord')){
-            qs('h2.renderedWord').remove()
+        if(qs('h2#renderedWord')){
+            qs('h2#renderedWord').remove()
         }
         
         let h2= document.createElement('h2')
@@ -21,7 +21,7 @@ class Word{
 
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    let wordIdx = 0
     const wordCatUrl = "http:/localhost:3000/api/v1/word_categories/1"
     const wordsUrl = "http:/localhost:3000/api/v1/words"
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         // .then
         .then(word_cat => { // Filter here ones that have been studied
-            renderWord(word_cat.words[0])
+            renderWord(word_cat.words[wordIdx])
         })
     }
 
@@ -91,9 +91,45 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
     
+    function nextWordButton(){
+
+        nextBtn= ce('button')
+        nextBtn.innerText= "Next Word"
+        const wordPanel = document.querySelector("div.words")
+        wordPanel.append(nextBtn)
+
+        nextBtn.addEventListener('click', () => {
+            wordIdx+=1;
+            fetchWord()
+        })
+    }
+
+    function prevWordButton(){
+
+        prevBtn= ce('button')
+        prevBtn.innerText= "Previous Word"
+        const wordPanel = document.querySelector("div.words")
+        wordPanel.append(prevBtn)
+
+        prevBtn.addEventListener('click', () => {
+            wordIdx-=1;
+            fetchWord()
+        })
+    }
     
     /* Function Calls */
     fetchWord()
     newWordForm()
+    prevWordButton()
+    nextWordButton()
     
 })
+
+/* Macro functions */
+function ce(ele){
+    return document.createElement(ele)
+}
+
+function qs(ele){
+    return document.querySelector(ele)
+}
