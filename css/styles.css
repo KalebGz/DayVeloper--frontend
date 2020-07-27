@@ -8,28 +8,28 @@ div.top {
     height: 200px;
     width: 90%;
 }
-div.middle {
+div.words {
     border: 50px outset red;
     background-color: lightblue;    
     text-align: center;
     height: 200px;
     width: 90%;
 }
-div.bottom {
+div.tasks {
     border: 50px outset red;
     background-color: lightblue;    
-    text-align: center;
-    height: 200px;
+    text-align: left;
+    height: 400px;
     width: 90%;
 }
-div.left{
+div.weather{
     float: left;
     height: 200px;
     width: 49.5%;
     border: 3px outset black;
     background-color: lightblue;    
 }
-div.right{
+div.events{
     float: right;
     height: 200px;
     width: 49.5%; 

@@ -14,19 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const top = ce('div')
     top.className = "top"
     const weatherDiv = ce('div')
-    weatherDiv.className = 'left'
+    weatherDiv.className = 'weather'
     const eventDiv = ce('div')
-    eventDiv.className = 'right'
+    eventDiv.className = 'events'
     top.append(weatherDiv, eventDiv)
 
-    const middle = ce('div')
-    middle.className = "middle"
+    const wordPanel = ce('div')
+    wordPanel.className = "words"
 
 
-    const bottom = ce('div')
-    bottom.className = "bottom"
+    const taskPanel = ce('div')
+    taskPanel.className = "tasks"
 
-    document.body.append(top, middle, bottom)
+    document.body.append(top, wordPanel, taskPanel)
 
     function ce(ele){
         return document.createElement(ele)
