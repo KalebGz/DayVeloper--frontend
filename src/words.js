@@ -7,10 +7,12 @@ class Word{
     render(){
         
         const wordPanel = document.querySelector("div.words")
-        wordPanel.innerHTML = ''
-        let h2 = document.createElement('h2')
-        // console.log(this.datetime)
-        // const dateStr = this.datetime.getFullYear()+'-'+(this.datetime.getMonth()+1)+'-'+this.datetime.getDate();
+        if(qs('h2.renderedWord')){
+            qs('h2.renderedWord').remove()
+        }
+        
+        let h2= document.createElement('h2')
+        h2.id= 'renderedWord'
         h2.innerText = `${this.term}: ${this.definition}`
         wordPanel.append(h2)
     }
@@ -20,11 +22,13 @@ class Word{
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    const wordCatUrl = "http:/localhost:3000/api/v1/word_categories/1"
     const wordsUrl = "http:/localhost:3000/api/v1/word_categories/1"
-    // const wordPanel = document.querySelector("div.words")
+
+    const wordPanel = document.querySelector("div.words")
     
     function fetchWord(){    
-        fetch(wordsUrl)
+        fetch(wordCatUrl)
         .then(res => res.json())
         // .then
         .then(word_cat => { // Filter here ones that have been studied
@@ -37,7 +41,59 @@ document.addEventListener('DOMContentLoaded', () => {
         let e = new Word(word.term, word.definition)
         e.render()
     }
+
+    function newWordForm(){
+        const form = ce('FORM')
+        form.name= 'newWord'
+        form.method= 'POST'
+        form.action= wordsUrl
+
+        const input1= ce('INPUT')
+        input1.type= 'Text'
+        input1.name= 'Term'
+        input1.placeholder= 'Term'
+        form.append(input1)
+
+        const input2= ce('INPUT')
+        input2.type= 'text'
+        input2.name= 'definition'
+        input2.placeholder= 'definition'
+        form.append(input2)
+
+
+        const input3= ce('INPUT')
+        input3.type= 'Submit'
+        input3.value= 'Create New Word'
+        form.append(input3)
+
+        wordPanel.append(form)
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault()
+
+            let configObj = {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    term: form[0].value, 
+                    definition: form[1].value,
+                    user_id: 1
+                })
+              }
+
+              fetch(wordsUrl, configObj)
+              .then(res => res.json())
+              .then(console.log)
+            //   .then(word => renderWord(word))
+
+        })
+    }
+    
     
     /* Function Calls */
     fetchWord()
+    newWordForm()
+    
 })
