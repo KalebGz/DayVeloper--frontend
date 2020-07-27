@@ -8,7 +8,7 @@ class Task{
     render(){
         const taskPanel = document.querySelector('div.tasks')
         let h2 = document.createElement('h2')
-        h2.id= this.id
+        h2.id= `task${this.id}`
         if(this.description){
         h2.innerText= `${this.title}: ${this.description}`
         }else{
@@ -70,9 +70,9 @@ class Task{
                     this.title = task.title
                     if(task.description){
                         this.description = task.description
-                        qs(`h2#\\3${this.id} `).innerText=  `${this.title}: ${this.description}`
+                        qs(`h2#task${this.id}`).innerText=  `${this.title}: ${this.description}`
                     }else{
-                        qs(`h2#\\3${this.id} `).innerText=  `${this.title}`
+                        qs(`h2#task${this.id}`).innerText=  `${this.title}`
                     }
                     // Hide form
                     form.remove()
