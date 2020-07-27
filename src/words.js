@@ -23,7 +23,7 @@ class Word{
 document.addEventListener('DOMContentLoaded', () => {
 
     const wordCatUrl = "http:/localhost:3000/api/v1/word_categories/1"
-    const wordsUrl = "http:/localhost:3000/api/v1/word_categories/1"
+    const wordsUrl = "http:/localhost:3000/api/v1/words"
 
     const wordPanel = document.querySelector("div.words")
     
@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ 
                     term: form[0].value, 
                     definition: form[1].value,
+                    word_category_id: 1,
                     user_id: 1
                 })
               }
@@ -86,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
               fetch(wordsUrl, configObj)
               .then(res => res.json())
               .then(console.log)
-            //   .then(word => renderWord(word))
 
         })
     }
