@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(taskUrl)
         .then(res => res.json())
         .then(task => task.subtasks.forEach( subtask => {
-            renderSubtasks(subtask)
+            renderSubtask(subtask)
         }))
     }
 
@@ -61,11 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
         t.render()
     }
 
-    function renderSubtasks(subtask){
+    function renderSubtask(subtask){
         let st = new Subtask(subtask.title)
         st.render()
     }
 
-    //  Function Calls
+
+    /* Function Calls */
     fetchTasks()
 })
+

@@ -38,6 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         e.render()
     }
     
-    //  Function Calls
+    /* Function Calls */
     fetchWord()
 })
