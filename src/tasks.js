@@ -6,16 +6,20 @@ class Task{
     }
 
     render(){
-        const taskPanel = document.querySelector('div.tasks')
-        let h2 = document.createElement('h2')
+        const taskPanel = qs('div.tasks')
+
+        const taskDiv = ce('div')
+        taskDiv.className= `task${this.id}`
+
+        const h2 = ce('h2')
         h2.id= `task${this.id}`
+
         if(this.description){
-        h2.innerText= `${this.title}: ${this.description}`
+            h2.innerText= `${this.title}: ${this.description}`
         }else{
             h2.innerText= `${this.title}`
         }
 
-        
         const editBtn = ce('button')
         editBtn.innerText = "EDIT"
 
@@ -66,7 +70,7 @@ class Task{
                   fetch(`http:/localhost:3000/api/v1/tasks/${this.id}`, configObj)
                   .then(res => res.json())
                   .then(task => {
-                    // Update the h2 with the current id with the new description and title
+                    // Update the object with the new task
                     this.title = task.title
                     if(task.description){
                         this.description = task.description
@@ -77,12 +81,11 @@ class Task{
                     // Hide form
                     form.remove()
                     
-                    
                   })
     
             })
-    
-            taskPanel.append(form) // TODO: Append it next to the current task instead of bottom of taskPanel
+            taskPanel.append(form)
+            // taskDiv.append(form) // TODO: Append it next to the current task instead of bottom of taskPanel
         })
 
         const deleteBtn = ce('button')
@@ -92,13 +95,14 @@ class Task{
             const deletedId = this.id
               fetch(`http:/localhost:3000/api/v1/tasks/${this.id}`, {method: 'DELETE'})
               .then( () => {
-                  console.log(qs(`h2#\\3${deletedId} `))
+                  console.log(qs(`h2#task${deletedId}`))
                   console.log(deletedId)
-                qs(`h2#\\3${deletedId} `).remove()
+                qs(`h2#task${deletedId}`).remove()
               })
         })
 
-        taskPanel.append(h2, editBtn,deleteBtn)
+        taskDiv.append(h2, editBtn,deleteBtn)
+        taskPanel.append(taskDiv)
     }
 }
 
@@ -133,6 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }))
     }
 
+
+    function renderTask(task){
+        let t = new Task(task.id, task.title, task.description)
+        t.render()
+    }
+
     function fetchSubtasks(id){
         const taskUrl = `http:/localhost:3000/api/v1/tasks/${id}`
 
@@ -143,10 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }))
     }
 
-    function renderTask(task){
-        let t = new Task(task.id, task.title, task.description)
-        t.render()
-    }
 
     function renderSubtask(subtask){
         let st = new Subtask(subtask.title)

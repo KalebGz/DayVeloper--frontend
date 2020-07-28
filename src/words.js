@@ -6,7 +6,7 @@ class Word{
 
     render(){
         
-        const wordPanel = document.querySelector("div.words")
+        const wordPanel = qs("div.words")
         if(qs('h2#renderedWord')){
             qs('h2#renderedWord').remove()
         }
@@ -14,6 +14,7 @@ class Word{
         let h2= document.createElement('h2')
         h2.id= 'renderedWord'
         h2.innerText = `${this.term}: ${this.definition}`
+        // debugger
         wordPanel.append(h2)
     }
 
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wordCatUrl = "http:/localhost:3000/api/v1/word_categories/1"
     const wordsUrl = "http:/localhost:3000/api/v1/words"
 
-    const wordPanel = document.querySelector("div.words")
+    const wordPanel = qs("div.words")
     
     function fetchWord(){    
         fetch(wordCatUrl)
@@ -95,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         nextBtn= ce('button')
         nextBtn.innerText= "Next Word"
-        const wordPanel = document.querySelector("div.words")
+        const wordPanel = qs("div.words")
         wordPanel.append(nextBtn)
 
         nextBtn.addEventListener('click', () => {
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         prevBtn= ce('button')
         prevBtn.innerText= "Previous Word"
-        const wordPanel = document.querySelector("div.words")
+        const wordPanel = qs("div.words")
         wordPanel.append(prevBtn)
 
         prevBtn.addEventListener('click', () => {
