@@ -27,7 +27,6 @@ class Task{
         editBtn.addEventListener('click', () => {
             const form = ce('FORM')
             form.name= 'newTask'
-            form.method= 'PATCH'
             form.action= `http:/localhost:3000/api/v1/tasks/${this.id}`
     
             const input1= ce('INPUT')
@@ -85,7 +84,6 @@ class Task{
     
             })
             taskDiv.append(form)
-            // taskDiv.append(form) // TODO: Append it next to the current task instead of bottom of taskPanel
         })
 
         const deleteBtn = ce('button')
@@ -105,15 +103,18 @@ class Task{
 }
 
 class Subtask{
-    constructor(title){
+    constructor(title, task_id){
         this.title = title
+        this.task_id = task_id
     }
 
     render(){
-        const taskPanel = document.querySelector('div.tasks')
+        // const taskPanel = document.querySelector('div.tasks')
+        
+        const taskDiv = qs(`div.task${this.task_id}`)
         let h4 = document.createElement('h4')
         h4.innerText = `-${this.title}`
-        taskPanel.append(h4)
+        taskDiv.append(h4)
     }
 }
 
@@ -153,14 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function renderSubtask(subtask){
-        let st = new Subtask(subtask.title)
+        let st = new Subtask(subtask.title, subtask.task_id)
         st.render()
     }
 
     function newTaskForm(){
         const form = ce('FORM')
         form.name= 'newTask'
-        form.method= 'POST'
         form.action= tasksUrl
 
         const input1= ce('INPUT')

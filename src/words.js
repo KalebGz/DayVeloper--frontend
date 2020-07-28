@@ -18,6 +18,8 @@ class Word{
         wordPanel.append(h2)
     }
 
+
+
 }
 
 
@@ -46,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function newWordForm(){
         const form = ce('FORM')
         form.name= 'newWord'
-        form.method= 'POST'
         form.action= wordsUrl
 
         const input1= ce('INPUT')

@@ -7,8 +7,9 @@ class Event{
 
     render(){
         const eventPanel = qs("div.events")
-        let h2 = ce('h2')
-        // console.log(this.datetime)
+        const eventDiv = ce('div')
+        const h2 = ce('h2')
+        
         const dateStr = this.datetime.getFullYear()+'-'+(this.datetime.getMonth()+1)+'-'+this.datetime.getDate();
         h2.innerText = `-${this.title} ON ${dateStr}`
         eventPanel.append(h2)
@@ -42,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function newEventForm(){
         const form = ce('FORM')
         form.name= 'newEvent'
-        form.method= 'POST'
         form.action= 'http:/localhost:3000/api/v1/events'
 
         const input1= ce('INPUT')
