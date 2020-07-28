@@ -84,7 +84,7 @@ class Task{
                   })
     
             })
-            taskPanel.append(form)
+            taskDiv.append(form)
             // taskDiv.append(form) // TODO: Append it next to the current task instead of bottom of taskPanel
         })
 
