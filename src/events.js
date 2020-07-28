@@ -1,9 +1,9 @@
 
 class Event{
-    constructor(id, title, datetime){
+    constructor(id, title, notif_time){
         this.id = id
         this.title = title
-        this.datetime = new Date (datetime)
+        this.notif_time = new Date (notif_time)
     }
 
     render(){
@@ -12,9 +12,10 @@ class Event{
         eventDiv.className= `event${this.id}`
 
         const h2 = ce('h2')
+        h2.id= `event${this.id}`
         
-        const dateStr = this.datetime.getFullYear()+'-'+(this.datetime.getMonth()+1)+'-'+this.datetime.getDate();
-        h2.innerText = `-${this.title} ON ${dateStr}`
+        const dateStr = this.notif_time.getFullYear()+'-'+(this.notif_time.getMonth()+1)+'-'+this.notif_time.getDate();
+        h2.innerText= `-${this.title} ON ${dateStr}`
 
         const editBtn = ce('button')
         editBtn.innerText = "EDIT"
@@ -30,16 +31,15 @@ class Event{
             form.append(input1)
     
             const input2= ce('INPUT')
-            input2.type= 'text'
-            input2.name= 'description'
-            input2.value= this.description
-            input2.placeholder= 'description'
+            input2.type= 'datetime-local'
+            input2.name= 'notifTime'
+            input2.value= this.notif_time
             form.append(input2)
     
     
             const input3= ce('INPUT')
             input3.type= 'Submit'
-            input3.value= 'Edit  Task'
+            input3.value= 'Edit Event'
             form.append(input3)
 
             form.addEventListener('submit', () => {
@@ -52,31 +52,27 @@ class Event{
                     },
                     body: JSON.stringify({ 
                         title: form.title.value, 
-                        description: form.description.value,
-                        completed: false,
-                        task_category_id: 1,
+                        description: form.notifTime.value,
                         user_id: 1
                     })
                   }
     
-                  fetch(`http:/localhost:3000/api/v1/tasks/${this.id}`, configObj)
+                  fetch(`http:/localhost:3000/api/v1/events/${this.id}`, configObj)
                   .then(res => res.json())
-                  .then(task => {
+                  .then(event => {
                     // Update the object with the new task
-                    this.title = task.title
-                    if(task.description){
-                        this.description = task.description
-                        qs(`h2#task${this.id}`).innerText=  `${this.title}: ${this.description}`
-                    }else{
-                        qs(`h2#task${this.id}`).innerText=  `${this.title}`
-                    }
+                    this.title = event.title
+                    this.notif_time = new Date (event.notif_time)
+
+                    const dateStr = this.notif_time.getFullYear()+'-'+(this.notif_time.getMonth()+1)+'-'+this.notif_time.getDate();
+                    qs(`h2#event${this.id}`).innerText=  `-${this.title} ON ${dateStr}`
                     // Hide form
                     form.remove()
                     
                   })
     
             })
-            taskDiv.append(form)
+            eventDiv.append(form)
         })
 
         const deleteBtn = ce('button')
@@ -84,13 +80,13 @@ class Event{
         
         deleteBtn.addEventListener('click', () => {
             const deletedId = this.id
-              fetch(`http:/localhost:3000/api/v1/tasks/${this.id}`, {method: 'DELETE'})
+              fetch(`http:/localhost:3000/api/v1/events/${this.id}`, {method: 'DELETE'})
               .then( () => {
-                qs(`div.task${deletedId}`).remove()
+                qs(`div.event${deletedId}`).remove()
               })
         })
         eventDiv.append(h2, editBtn, deleteBtn)
-        event
+        eventPanel.append(eventDiv)
     }
 
 
