@@ -95,9 +95,7 @@ class Task{
             const deletedId = this.id
               fetch(`http:/localhost:3000/api/v1/tasks/${this.id}`, {method: 'DELETE'})
               .then( () => {
-                  console.log(qs(`h2#task${deletedId}`))
-                  console.log(deletedId)
-                qs(`h2#task${deletedId}`).remove()
+                qs(`div.task${deletedId}`).remove()
               })
         })
 
