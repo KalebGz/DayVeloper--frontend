@@ -47,8 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function newWordForm(){
         const form = ce('FORM')
-        form.name= 'newWord'
-        form.action= wordsUrl
 
         const input1= ce('INPUT')
         input1.type= 'Text'

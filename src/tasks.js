@@ -26,8 +26,6 @@ class Task{
         // TODO: DRY -> create function to create a standard form for creating/updating
         editBtn.addEventListener('click', () => {
             const form = ce('FORM')
-            form.name= 'newTask'
-            form.action= `http:/localhost:3000/api/v1/tasks/${this.id}`
     
             const input1= ce('INPUT')
             input1.type= 'Text'
@@ -160,8 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function newTaskForm(){
         const form = ce('FORM')
-        form.name= 'newTask'
-        form.action= tasksUrl
 
         const input1= ce('INPUT')
         input1.type= 'Text'
