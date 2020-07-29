@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const taskPanel = ce('div')
     taskPanel.className = "tasks"
+    const taskList = ce('DIV')
+    taskList.className= 'taskList'
+    taskPanel.append(taskList)
 
     document.body.append(top, wordPanel, taskPanel)
 

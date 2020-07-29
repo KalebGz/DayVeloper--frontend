@@ -57,7 +57,7 @@ Pseudocode for implementing different words
             fetchWord()
         })
 
-        wordPanel.append(categoryBtn)
+        wordPanel.prepend(categoryBtn)
 
     }
     

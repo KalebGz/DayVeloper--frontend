@@ -6,7 +6,7 @@ class Task{
     }
 
     render(){
-        const taskPanel = qs('div.tasks')
+        const taskList = qs('div.taskList')
 
         const taskDiv = ce('div')
         taskDiv.className= `task${this.id}`
@@ -96,7 +96,7 @@ class Task{
         })
 
         taskDiv.append(h2, editBtn,deleteBtn)
-        taskPanel.append(taskDiv)
+        taskList.append(taskDiv)
     }
 }
 
@@ -107,7 +107,6 @@ class Subtask{
     }
 
     render(){
-        // const taskPanel = document.querySelector('div.tasks')
         
         const taskDiv = qs(`div.task${this.task_id}`)
         let h4 = document.createElement('h4')
@@ -119,13 +118,35 @@ class Subtask{
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    const taskCatUrl = 'http:/localhost:3000/api/v1/task_categories/1'
+    let taskCatUrl = 'http:/localhost:3000/api/v1/task_categories/1'
+    const taskCatsUrl = 'http:/localhost:3000/api/v1/task_categories'
     const tasksUrl = 'http:/localhost:3000/api/v1/tasks'
-    const taskPanel = document.querySelector('div.tasks')
+    const taskPanel = qs('div.tasks')
+    const taskList = qs('div.taskList')
+
+    function fetchTaskCategories(cat){
+        fetch(taskCatsUrl)
+        .then(res => res.json())
+        .then(taskCats => taskCats.forEach(taskCat => renderTaskCatBtn(taskCat)))
+    }
+
+    function renderTaskCatBtn(taskCat){
+        // console.log(taskCat)
+        taskCatBtn = ce('BUTTON')
+        taskCatBtn.innerText= taskCat.name
+        taskPanel.prepend(taskCatBtn)
+
+        taskCatBtn.addEventListener('click', () => {
+            taskCatUrl = `http:/localhost:3000/api/v1/task_categories/${taskCat.id}`
+            fetchTasks()
+        })
+
+
+    }
 
     function fetchTasks(){    
-        taskPanel.innerHTML = ''
-
+        // debugger
+        taskList.innerHTML = ''
         fetch(taskCatUrl)
         .then(res => res.json())
         .then(task_cat => task_cat.tasks.forEach( task => {
@@ -133,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchSubtasks(task.id)
         }))
     }
+
 
 
     function renderTask(task){
@@ -177,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input3.value= 'Create New Task'
         form.append(input3)
 
-        taskPanel.append(form)
+        taskPanel.prepend(form)
 
         form.addEventListener('submit', (e) => {
             e.preventDefault()
@@ -204,8 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+
     /* Function Calls */
-    fetchTasks()
+    fetchTaskCategories()
     newTaskForm()
 })
 
