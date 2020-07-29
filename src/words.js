@@ -24,16 +24,9 @@ class Word{
 
 document.addEventListener('DOMContentLoaded', () => {
 
-
-    /**
-Pseudocode for implementing different words
-1. create buttons for all the word categories
-2. once a button is clicked, set wordCatUrl to a string based on the id of the word category clicked
-     */
-
-    let wordIdx = 0
-    let numWords = 0
-    let wordCatUrl = 'http:/localhost:3000/api/v1/word_categories/1'
+    let wordIdx = 0 // Idx of the word being displayed
+    let numWords = 0    // upper bound when cycling through words
+    let wordCatUrl = '' // set when category button is clicked
     const wordCatsUrl = 'http:/localhost:3000/api/v1/word_categories'
     const wordsUrl = "http:/localhost:3000/api/v1/words"
     const wordPanel = qs("div.words")
@@ -152,7 +145,6 @@ Pseudocode for implementing different words
     }
     
     /* Function Calls */
-
     fetchWordCategories()
     newWordForm()
     prevWordButton()

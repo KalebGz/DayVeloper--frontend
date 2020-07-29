@@ -14,8 +14,9 @@ class Event{
         const h2 = ce('h2')
         h2.id= `event${this.id}`
         
-        const dateStr = this.notif_time.getFullYear()+'-'+(this.notif_time.getMonth()+1)+'-'+this.notif_time.getDate();
-        h2.innerText= `-${this.title} ON ${dateStr}`
+        // const dateStr = this.notif_time.getFullYear()+'-'+(this.notif_time.getMonth()+1)+'-'+this.notif_time.getDate()
+        // debugger
+        h2.innerText= `-${this.title} ON ${this.dateToStr()}`
 
         const editBtn = ce('button')
         editBtn.innerText = "EDIT"
@@ -30,10 +31,9 @@ class Event{
             form.append(input1)
     
             const input2= ce('INPUT')
-            input2.type= 'datetime-local'
+            input2.type= 'Text'
             input2.name= 'notifTime'
-            // input2.value= this.notif_time
-            input2.value= "2018-06-12T19:30"
+            input2.value= this.dateToStr()
             form.append(input2)
     
     
@@ -45,6 +45,7 @@ class Event{
             form.addEventListener('submit', () => {
                 event.preventDefault()
 
+                // debugger
                 let configObj = {
                     method: 'PATCH',
                     headers: {
@@ -52,7 +53,7 @@ class Event{
                     },
                     body: JSON.stringify({ 
                         title: form.title.value, 
-                        description: form.notifTime.value,
+                        notif_time: form.notifTime.value,
                         user_id: 1
                     })
                   }
@@ -64,8 +65,7 @@ class Event{
                     this.title = event.title
                     this.notif_time = new Date (event.notif_time)
 
-                    const dateStr = event.notif_time.getFullYear()+'-'+(event.notif_time.getMonth()+1)+'-'+event.notif_time.getDate();
-                    qs(`h2#event${this.id}`).innerText=  `-${this.title} ON ${dateStr}`
+                    qs(`h2#event${this.id}`).innerText=  `-${this.title} ON ${this.dateToStr()}`
                     // Hide form
                     form.remove()
                     
@@ -89,6 +89,11 @@ class Event{
         eventPanel.append(eventDiv)
     }
 
+
+    dateToStr(){
+        let dateStr = this.notif_time.toString().split('GMT')[0]
+        return dateStr.substring(0, dateStr.length - 4) // remove milliseconds
+    }
 
 }
 
@@ -124,9 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
         form.append(input1)
 
         const input2= ce('INPUT')
-        input2.type= 'datetime-local'
+        input2.type= 'Text'
         input2.name= 'notif-time'
-        input2.value= "2018-06-12T19:30"
+        input2.value= "Wed Jul 29 2020 03:03"
         form.append(input2)
 
         // userCheckBoxes(form)
