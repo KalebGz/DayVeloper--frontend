@@ -19,7 +19,6 @@ class Event{
 
         const editBtn = ce('button')
         editBtn.innerText = "EDIT"
-
         editBtn.addEventListener('click', () => {
             const form = ce('FORM')
     
@@ -33,7 +32,8 @@ class Event{
             const input2= ce('INPUT')
             input2.type= 'datetime-local'
             input2.name= 'notifTime'
-            input2.value= this.notif_time
+            // input2.value= this.notif_time
+            input2.value= "2018-06-12T19:30"
             form.append(input2)
     
     
@@ -64,7 +64,7 @@ class Event{
                     this.title = event.title
                     this.notif_time = new Date (event.notif_time)
 
-                    const dateStr = this.notif_time.getFullYear()+'-'+(this.notif_time.getMonth()+1)+'-'+this.notif_time.getDate();
+                    const dateStr = event.notif_time.getFullYear()+'-'+(event.notif_time.getMonth()+1)+'-'+event.notif_time.getDate();
                     qs(`h2#event${this.id}`).innerText=  `-${this.title} ON ${dateStr}`
                     // Hide form
                     form.remove()

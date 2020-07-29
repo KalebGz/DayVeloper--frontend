@@ -14,7 +14,6 @@ class Word{
         let h2= document.createElement('h2')
         h2.id= 'renderedWord'
         h2.innerText = `${this.term}: ${this.definition}`
-        // debugger
         wordPanel.append(h2)
     }
 
@@ -24,23 +23,55 @@ class Word{
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    let wordIdx = 0
-    const wordCatUrl = "http:/localhost:3000/api/v1/word_categories/1"
-    const wordsUrl = "http:/localhost:3000/api/v1/words"
 
+
+    /**
+Pseudocode for implementing different words
+1. create buttons for all the word categories
+2. once a button is clicked, set wordCatUrl to a string based on the id of the word category clicked
+     */
+
+    let wordIdx = 0
+    let numWords = 0
+    let wordCatUrl = 'http:/localhost:3000/api/v1/word_categories/1'
+    const wordCatsUrl = 'http:/localhost:3000/api/v1/word_categories'
+    const wordsUrl = "http:/localhost:3000/api/v1/words"
     const wordPanel = qs("div.words")
+
+    function fetchWordCategories(){
+        fetch(wordCatsUrl)
+        .then(res => res.json())
+        .then(categories => {
+            numWords = categories.length
+            // debugger
+            categories.forEach(cat => renderCatBtn(cat))
+            })
+    }
+
+    function renderCatBtn(cat){
+        const categoryBtn = ce('BUTTON')
+        categoryBtn.innerText= cat.name
+
+        categoryBtn.addEventListener('click', () => {
+            wordCatUrl = `http:/localhost:3000/api/v1/word_categories/${cat.id}` 
+            fetchWord()
+        })
+
+        wordPanel.append(categoryBtn)
+
+    }
     
     function fetchWord(){    
         fetch(wordCatUrl)
         .then(res => res.json())
-        // .then
-        .then(word_cat => { // Filter here ones that have been studied
+        .then(word_cat => { 
+            console.log(wordIdx)
             renderWord(word_cat.words[wordIdx])
         })
     }
 
     function renderWord(word){
-        // console.log(word)
+        console.log(word)
         let e = new Word(word.term, word.definition)
         e.render()
     }
@@ -86,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
               fetch(wordsUrl, configObj)
               .then(res => res.json())
-              .then(console.log)
+              .then(numWords+=1)
 
         })
     }
@@ -99,8 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
         wordPanel.append(nextBtn)
 
         nextBtn.addEventListener('click', () => {
-            wordIdx+=1;
-            fetchWord()
+            if( wordIdx+1 < numWords){
+                wordIdx+=1;
+                fetchWord()
+            }
         })
     }
 
@@ -112,13 +145,16 @@ document.addEventListener('DOMContentLoaded', () => {
         wordPanel.append(prevBtn)
 
         prevBtn.addEventListener('click', () => {
-            wordIdx-=1;
-            fetchWord()
+            if (wordIdx > 0){
+                wordIdx-=1;
+                fetchWord()
+            }
         })
     }
     
     /* Function Calls */
-    fetchWord()
+
+    fetchWordCategories()
     newWordForm()
     prevWordButton()
     nextWordButton()
