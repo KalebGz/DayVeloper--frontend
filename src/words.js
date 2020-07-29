@@ -43,7 +43,6 @@ Pseudocode for implementing different words
         .then(res => res.json())
         .then(categories => {
             numWords = categories.length
-            // debugger
             categories.forEach(cat => renderCatBtn(cat))
             })
     }
@@ -53,6 +52,8 @@ Pseudocode for implementing different words
         categoryBtn.innerText= cat.name
 
         categoryBtn.addEventListener('click', () => {
+            numWords = cat.words.length
+            // debugger
             wordCatUrl = `http:/localhost:3000/api/v1/word_categories/${cat.id}` 
             fetchWord()
         })
@@ -65,13 +66,11 @@ Pseudocode for implementing different words
         fetch(wordCatUrl)
         .then(res => res.json())
         .then(word_cat => { 
-            console.log(wordIdx)
             renderWord(word_cat.words[wordIdx])
         })
     }
 
     function renderWord(word){
-        console.log(word)
         let e = new Word(word.term, word.definition)
         e.render()
     }
