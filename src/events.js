@@ -87,6 +87,27 @@ class Event{
         })
         eventDiv.append(h2, editBtn, deleteBtn)
         eventPanel.append(eventDiv)
+        
+        // debugger
+        const thisEvent = this
+        // Check if event notif_time is now every 60 seconds
+        let timerId = setInterval(function() {
+            // debugger
+            const eventTime = thisEvent.notif_time
+            const today = new Date()
+            // debugger
+            if (eventTime.getDate() == today.getDate() && eventTime.getMonth() == today.getMonth() && eventTime.getFullYear() == today.getFullYear()){
+                // console.log('Correct date')
+                // debugger
+                if(eventTime.getHours() == today.getHours() && eventTime.getMinutes() == today.getMinutes()){ 
+                    console.log("it's time")
+                    alert(thisEvent.title)
+                    clearInterval(timerID); 
+                }
+            }else{
+                console.log('not time')
+            }
+        }, 60 * 1000);
     }
 
 
@@ -94,6 +115,8 @@ class Event{
         let dateStr = this.notif_time.toString().split('GMT')[0]
         return dateStr.substring(0, dateStr.length - 4) // remove milliseconds
     }
+
+
 
 }
 
