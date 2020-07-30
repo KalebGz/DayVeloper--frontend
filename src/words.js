@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let wordIdx = 0 // Idx of the word being displayed
     let numWords = 0    // upper bound when cycling through words
     let wordCatUrl = '' // set when category button is clicked
+    let categoryId = -1;
     const wordCatsUrl = 'http:/localhost:3000/api/v1/word_categories'
     const wordsUrl = "http:/localhost:3000/api/v1/words"
     const wordPanel = qs("div.words")
@@ -49,10 +50,20 @@ document.addEventListener('DOMContentLoaded', () => {
             numWords = cat.words.length
             // debugger
             wordCatUrl = `http:/localhost:3000/api/v1/word_categories/${cat.id}` 
+            categoryId = cat.id
             fetchWord()
+            if(qs('form#newWord')){
+                qs('button#next').remove()
+                qs('button#prev').remove()
+                qs('form#newWord').remove()
+            }
+            newWordForm()
+            prevWordButton()
+            nextWordButton()
         })
 
         wordPanel.prepend(categoryBtn)
+
 
     }
     
@@ -71,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function newWordForm(){
         const form = ce('FORM')
+        form.id='newWord'
 
         const input1= ce('INPUT')
         input1.type= 'Text'
@@ -103,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ 
                     term: form[0].value, 
                     definition: form[1].value,
-                    word_category_id: 1,
+                    word_category_id: categoryId,
                     user_id: 1
                 })
               }
@@ -119,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         nextBtn= ce('button')
         nextBtn.innerText= "Next Word"
+        nextBtn.id='next'
         const wordPanel = qs("div.words")
         wordPanel.append(nextBtn)
 
@@ -134,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         prevBtn= ce('button')
         prevBtn.innerText= "Previous Word"
+        prevBtn.id='prev'
         const wordPanel = qs("div.words")
         wordPanel.append(prevBtn)
 
@@ -147,9 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     /* Function Calls */
     fetchWordCategories()
-    newWordForm()
-    prevWordButton()
-    nextWordButton()
+    
+  
     
 })
 

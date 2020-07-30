@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => res.json())
         .then(weatherObj => {
             obj = new Weather(weatherObj.main.temp,weatherObj.weather[0].description, weatherObj.main.feels_like, weatherObj.sys.sunrise, weatherObj.sys.sunset)
-            console.log(weatherObj)
             obj.render()
         })
     }
