@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(weatherUrl)
         .then(res => res.json())
         .then(weatherObj => {
-            debugger
             obj = new Weather(weatherObj.main.temp,weatherObj.weather[0].description, weatherObj.main.feels_like, weatherObj.sys.sunrise, weatherObj.sys.sunset)
             console.log(weatherObj)
             obj.render()
