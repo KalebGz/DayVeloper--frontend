@@ -109,7 +109,7 @@ padding: 20px;
     /* border: 50px outset red; */
     background-color: lightblue;    
     text-align: center;
-    height: 300px;
+    height: 400px;
     width: 90%;
 
     overflow: scroll;
@@ -118,4 +118,8 @@ padding: 20px;
 .taskList{
     padding: 50px;
     text-align: left;
+}
+
+.subtask{
+    padding: 15px;
 }

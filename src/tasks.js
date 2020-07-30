@@ -112,11 +112,12 @@ class Subtask{
         
         const taskDiv = qs(`div.task${this.task_id}`)
         const subTaskDiv = ce('div')
-        subTaskDiv.id = `subtask${this.id} inline`
+        subTaskDiv.id = `subtask${this.id}`
 
         const h4 = document.createElement('h4')
         h4.innerText = `-${this.title}`
         h4.id= `subtask${this.id}`
+        h4.className = 'subtask inline'
 
         const editBtn = ce('button')
         editBtn.innerText = "EDIT"
