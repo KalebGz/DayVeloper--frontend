@@ -41,13 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskTitle = ce('H1')
     taskTitle.innerText = 'Tasks'
     taskTitle.className= 'panelTitle' 
-    taskPanel.prepend(taskTitle)
+    // taskPanel.append(taskTitle)
 
     const taskCats = ce('DIV')
     taskCats.className = "category taskCats"
     const taskList = ce('DIV')
     taskList.className= 'taskList'
-    taskPanel.append(taskCats, taskList)
+    taskPanel.append(taskCats, taskTitle, taskList)
 
     document.body.append(top, wordPanel, taskPanel)
 

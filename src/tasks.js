@@ -197,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskPanel = qs('div.tasks')
     const taskList = qs('div.taskList')
     const taskCats = qs('div.taskCats')
+    let categoryId = -1;
     
 
     function fetchTaskCategories(cat){
@@ -214,6 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         taskCatBtn.addEventListener('click', () => {
             taskCatUrl = `http:/localhost:3000/api/v1/task_categories/${taskCat.id}`
+            categoryId = taskCat.id
             fetchTasks()
         })
 
@@ -289,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: form.title.value, 
                     description: form.description.value,
                     completed: false,
-                    task_category_id: 1,
+                    task_category_id: categoryId,
                     user_id: 1
                 })
               }
