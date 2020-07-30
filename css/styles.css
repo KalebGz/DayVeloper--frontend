@@ -64,9 +64,9 @@ h3 {
  }
 
 .box {
-margin: 30px; 
-border-radius: 20px; 
-padding: 20px; 
+    margin: 30px; 
+    border-radius: 20px; 
+    padding: 20px; 
 } 
 
 .top {
@@ -118,6 +118,8 @@ padding: 20px;
 .taskList{
     padding: 50px;
     text-align: left;
+    border: 3px outset black;
+    border-radius: 20px; 
 }
 
 .subtask{
