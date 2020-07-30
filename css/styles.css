@@ -71,7 +71,7 @@ h3 {
 
 .top {
     /* border: 50px outset red; */
-    background-color: lightblue;    
+    /* background-color: lightblue;     */
     text-align: center;
     height: 200px;
     width: 90%;
@@ -100,14 +100,16 @@ h3 {
 }
 .words {
     /* border: 50px outset red; */
-    background-color: lightblue;    
+    background-color: lightblue;   
+    border: 3px outset black; 
     text-align: center;
     height: 250px;
     width: 90%;
 }
 .tasks {
     /* border: 50px outset red; */
-    background-color: lightblue;    
+    background-color: lightblue;   
+    border: 3px outset black; 
     text-align: center;
     height: 400px;
     width: 90%;

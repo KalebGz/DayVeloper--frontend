@@ -56,6 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 qs('button#next').remove()
                 qs('button#prev').remove()
                 qs('form#newWord').remove()
+                if(qs('h2#renderedWord')){
+                    qs('h2#renderedWord').remove()
+                }
             }
             newWordForm()
             prevWordButton()
@@ -122,7 +125,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
               fetch(wordsUrl, configObj)
               .then(res => res.json())
-              .then(numWords+=1)
+              .then(wordObj => {
+                numWords+=1
+                const word = new Word(wordObj.term, wordObj.definition)
+                word.render()
+                form.reset()
+                  
+              })
 
         })
     }

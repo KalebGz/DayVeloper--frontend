@@ -42,7 +42,6 @@ class Task{
             input2.placeholder= 'description'
             form.append(input2)
     
-    
             const input3= ce('INPUT')
             input3.type= 'Submit'
             input3.value= 'Edit  Task'
@@ -96,8 +95,53 @@ class Task{
               })
         })
 
-        taskDiv.append(h3, editBtn,deleteBtn)
+        const addSubBtn = ce('button')
+        addSubBtn.innerText = "Add Subtask"
+
+        // ADD Subtask
+        addSubBtn.addEventListener('click', () => {
+            const form = ce('FORM')
+    
+            const input1= ce('INPUT')
+            input1.type= 'Text'
+            input1.name= 'title'
+            input1.placeholder= 'subtask title'
+            form.append(input1)
+        
+            const submit= ce('INPUT')
+            submit.type= 'Submit'
+            submit.value= 'Add subtask'
+            form.append(submit)
+
+            form.addEventListener('submit', () => {
+                event.preventDefault()
+
+                let configObj = {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        title: form.title.value, 
+                        task_id: this.id
+                    })
+                  }
+    
+                  fetch(`http:/localhost:3000/api/v1/subtasks`, configObj)
+                  .then(res => res.json())
+                  .then(subtaskObj => {
+                    const subtask = new Subtask(subtaskObj.id, subtaskObj.title, this.id)
+                    subtask.render()
+                    form.remove()
+                  })
+    
+            })
+            taskDiv.append(form)
+        })
+
+        taskDiv.append(h3, addSubBtn, editBtn,deleteBtn)
         taskList.append(taskDiv)
+            
     }
 }
 
@@ -216,6 +260,9 @@ document.addEventListener('DOMContentLoaded', () => {
         taskCatBtn.addEventListener('click', () => {
             taskCatUrl = `http:/localhost:3000/api/v1/task_categories/${taskCat.id}`
             categoryId = taskCat.id
+            if(qs('form#newTask')){
+                qs('form#newTask').remove()
+            }
             fetchTasks()
         })
 
@@ -225,12 +272,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function fetchTasks(){    
         // debugger
         taskList.innerHTML = ''
+        // newTaskForm()
         fetch(taskCatUrl)
         .then(res => res.json())
         .then(task_cat => task_cat.tasks.forEach( task => {
             renderTask(task)
             fetchSubtasks(task.id)
         }))
+        .then(() => newTaskForm())
+        
     }
 
 
@@ -258,6 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function newTaskForm(){
         const form = ce('FORM')
+        form.id='newTask'
 
         const input1= ce('INPUT')
         input1.type= 'Text'
@@ -298,7 +349,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
               fetch(tasksUrl, configObj)
               .then(res => res.json())
-              .then(task => renderTask(task))
+              .then(task => {
+                  renderTask(task)
+                  form.reset()
+            })
 
         })
     }
@@ -307,7 +361,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Function Calls */
     fetchTaskCategories()
-    newTaskForm()
 })
 
 /* Macro functions */
