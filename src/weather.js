@@ -3,9 +3,9 @@ class Weather{
     
     constructor(tempK, description, feels_like, sunrise, sunset ){
         this.tempK = tempK // Temprature in Kelvin
-        this.tempC = (tempK - 273.15) * 9/5 + 32
+        this.tempC = Math.round((tempK - 273.15) * 9/5 + 32)
         this.description = description
-        this.feels_like = (feels_like - 273.15) * 9/5 + 32
+        this.feels_like = Math.round((feels_like - 273.15) * 9/5 + 32)
         this.sunrise =  new Date(sunrise*1000)
         this.sunset = new Date(sunset*1000)
     }
@@ -23,14 +23,19 @@ class Weather{
         desc.innerText= `Description: ${this.description}`
 
         const sunrise = ce('H3')
-        sunrise.innerText= `Sunrise: ${this.sunrise}`
+        sunrise.innerText= `Sunrise: ${this.normalizeTime(this.sunrise)}`
 
         const sunset = ce('H3')
-        sunset.innerText= `Sunset: ${this.sunset}`
+        sunset.innerText= `Sunrise: ${this.normalizeTime(this.sunset)}`
 
         weatherPanel.append(temp, feelsLike, desc, sunrise, sunset)
+    }
 
-
+    normalizeTime(date){
+        let hour = date.getHours() % 12
+        let minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` :  date.getMinutes()
+        let suffix = date.getHours() > 12 ? 'PM' : 'AM'
+        return `${hour}:${minutes} ${suffix}`
     }
 }
 
