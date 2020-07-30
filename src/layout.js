@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     taskPanel.append(taskCats, taskList)
 
     document.body.append(top, wordPanel, taskPanel)
-    debugger
+
 
     function ce(ele){
         return document.createElement(ele)

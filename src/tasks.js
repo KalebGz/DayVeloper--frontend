@@ -102,7 +102,8 @@ class Task{
 }
 
 class Subtask{
-    constructor(title, task_id){
+    constructor(id, title, task_id){
+        this.id = id
         this.title = title
         this.task_id = task_id
     }
@@ -110,9 +111,77 @@ class Subtask{
     render(){
         
         const taskDiv = qs(`div.task${this.task_id}`)
-        let h4 = document.createElement('h4')
+        const h4 = document.createElement('h4')
         h4.innerText = `-${this.title}`
-        taskDiv.append(h4)
+        h4.id= `subtask${this.id} inline`
+
+        const editBtn = ce('button')
+        editBtn.innerText = "EDIT"
+        editBtn.id= `subtask${this.id}`
+
+        // TODO: DRY -> create function to create a standard form for creating/updating
+        editBtn.addEventListener('click', () => {
+            const form = ce('FORM')
+    
+            const input1= ce('INPUT')
+            input1.type= 'Text'
+            input1.name= 'title'
+            input1.value= this.title
+            input1.placeholder= 'title'
+            form.append(input1)
+        
+            const submit= ce('INPUT')
+            submit.type= 'Submit'
+            submit.value= 'Edit  Task'
+            form.append(submit)
+
+            form.addEventListener('submit', () => {
+                event.preventDefault()
+
+                let configObj = {
+                    method: 'PATCH',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        title: form.title.value, 
+                        task_id: this.task_id
+                    })
+                  }
+    
+                  fetch(`http:/localhost:3000/api/v1/subtasks/${this.id}`, configObj)
+                  .then(res => res.json())
+                  .then(task => {
+                    // Update the object with the new task
+                    this.title = task.title
+                    qs(`h4#subtask${this.id}`).innerText=  `${this.title}`
+
+                    // Hide form
+                    form.remove()
+                    
+                  })
+    
+            })
+            taskDiv.append(form)
+        })
+
+        const deleteBtn = ce('button')
+        deleteBtn.innerText = "DELETE"
+        editBtn.id= `subtask${this.id}`
+        
+        deleteBtn.addEventListener('click', () => {
+            const deletedId = this.id
+              fetch(`http:/localhost:3000/api/v1/subtasks/${this.id}`, {method: 'DELETE'})
+              .then( () => {
+                qs(`h4#subtask${deletedId}`).remove()
+                // Delete edit and delete buttons
+                qs(`button#subtask${deletedId}`).remove()
+                qs(`button#subtask${deletedId}`).remove()
+              })
+        })
+
+        taskDiv.append(h4, editBtn,deleteBtn)
+        // taskDiv.append(h4)
     }
 }
 
@@ -178,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function renderSubtask(subtask){
-        let st = new Subtask(subtask.title, subtask.task_id)
+        let st = new Subtask(subtask.id, subtask.title, subtask.task_id)
         st.render()
     }
 
