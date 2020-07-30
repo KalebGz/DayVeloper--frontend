@@ -111,9 +111,12 @@ class Subtask{
     render(){
         
         const taskDiv = qs(`div.task${this.task_id}`)
+        const subTaskDiv = ce('div')
+        subTaskDiv.id = `subtask${this.id} inline`
+
         const h4 = document.createElement('h4')
         h4.innerText = `-${this.title}`
-        h4.id= `subtask${this.id} inline`
+        h4.id= `subtask${this.id}`
 
         const editBtn = ce('button')
         editBtn.innerText = "EDIT"
@@ -132,7 +135,7 @@ class Subtask{
         
             const submit= ce('INPUT')
             submit.type= 'Submit'
-            submit.value= 'Edit  Task'
+            submit.value= 'Edit Task'
             form.append(submit)
 
             form.addEventListener('submit', () => {
@@ -162,7 +165,7 @@ class Subtask{
                   })
     
             })
-            taskDiv.append(form)
+            subTaskDiv.append(form)
         })
 
         const deleteBtn = ce('button')
@@ -173,15 +176,14 @@ class Subtask{
             const deletedId = this.id
               fetch(`http:/localhost:3000/api/v1/subtasks/${this.id}`, {method: 'DELETE'})
               .then( () => {
-                qs(`h4#subtask${deletedId}`).remove()
-                // Delete edit and delete buttons
-                qs(`button#subtask${deletedId}`).remove()
-                qs(`button#subtask${deletedId}`).remove()
+                qs(`div#subtask${deletedId}`).remove()
+                // qs(`button#subtask${deletedId}`).remove()
+                // qs(`button#subtask${deletedId}`).remove()
               })
         })
 
-        taskDiv.append(h4, editBtn,deleteBtn)
-        // taskDiv.append(h4)
+        subTaskDiv.append(h4, editBtn,deleteBtn)
+        taskDiv.append(subTaskDiv)
     }
 }
 
