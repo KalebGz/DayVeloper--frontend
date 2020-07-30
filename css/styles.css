@@ -5,7 +5,7 @@
 
 body {
     background-color: #252222; 
-    font-family: "Montserrat Regular"; 
+    /* font-family: "Montserrat Regular";  */
     
     max-width: 1250px;
     margin: auto;
@@ -24,6 +24,8 @@ h3 {
 
 .category{
     text-align: center;
+    border-radius: 20px;
+    font-size: 16px;
     /* display: inline-block; */
      /* margin: 0 auto; */
 }
@@ -100,15 +102,20 @@ padding: 20px;
     /* border: 50px outset red; */
     background-color: lightblue;    
     text-align: center;
-    height: 200px;
+    height: 250px;
     width: 90%;
 }
 .tasks {
     /* border: 50px outset red; */
     background-color: lightblue;    
-    /* text-align: center; */
+    text-align: center;
     height: 300px;
     width: 90%;
 
     overflow: scroll;
+}
+
+.taskList{
+    padding: 50px;
+    text-align: left;
 }

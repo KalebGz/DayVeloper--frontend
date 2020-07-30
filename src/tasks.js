@@ -11,14 +11,14 @@ class Task{
         const taskDiv = ce('div')
         taskDiv.className= `task${this.id}`
 
-        const h2 = ce('h2')
-        h2.id= `task${this.id}`
-        h2.className = 'inline'
+        const h3 = ce('h3')
+        h3.id= `task${this.id}`
+        h3.className = 'inline'
 
         if(this.description){
-            h2.innerText= `${this.title}: ${this.description}`
+            h3.innerText= `${this.title}: ${this.description}`
         }else{
-            h2.innerText= `${this.title}`
+            h3.innerText= `${this.title}`
         }
 
         const editBtn = ce('button')
@@ -72,9 +72,9 @@ class Task{
                     this.title = task.title
                     if(task.description){
                         this.description = task.description
-                        qs(`h2#task${this.id}`).innerText=  `${this.title}: ${this.description}`
+                        qs(`h3#task${this.id}`).innerText=  `${this.title}: ${this.description}`
                     }else{
-                        qs(`h2#task${this.id}`).innerText=  `${this.title}`
+                        qs(`h3#task${this.id}`).innerText=  `${this.title}`
                     }
                     // Hide form
                     form.remove()
@@ -96,7 +96,7 @@ class Task{
               })
         })
 
-        taskDiv.append(h2, editBtn,deleteBtn)
+        taskDiv.append(h3, editBtn,deleteBtn)
         taskList.append(taskDiv)
     }
 }
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
         taskCatBtn = ce('BUTTON')
         taskCatBtn.innerText= taskCat.name
         taskCatBtn.className= 'category'
-        taskCats.prepend(taskCatBtn)
+        taskCats.append(taskCatBtn)
 
         taskCatBtn.addEventListener('click', () => {
             taskCatUrl = `http:/localhost:3000/api/v1/task_categories/${taskCat.id}`

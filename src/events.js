@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventPanel = qs("div.events")
     const eventsUrl = "http:/localhost:3000/api/v1/events"
     
-    eventPanel.innerHTML = ''
+    // eventPanel.innerHTML = ''
     
     function fetchEvents(){
 

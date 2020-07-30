@@ -11,30 +11,37 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.append(h1)
 
     // Top (weather + events)
-    const top = ce('div')
+    const top = ce('DIV')
     top.className = "box top"
-    
-    const weatherDiv = ce('div')
-    weatherDiv.className = 'weather'
+
+    const weatherDIV = ce('DIV')
+    weatherDIV.className = 'weather'
     const weatherTitle = ce('H1')
     weatherTitle.innerText = 'Weather'
     weatherTitle.className= 'panelTitle' 
-    weatherDiv.append(weatherTitle)
-    const eventDiv = ce('div')
+    weatherDIV.append(weatherTitle)
 
-    eventDiv.className = 'events'
+    const eventDIV = ce('DIV')
+    eventDIV.className = 'events'
     const eventTitle = ce('H1')
     eventTitle.innerText = 'Events'
     eventTitle.className= 'panelTitle' 
-    eventDiv.append(eventTitle)
-    top.append(weatherDiv, eventDiv)
+    eventDIV.append(eventTitle)
+    top.append(weatherDIV, eventDIV)
 
-    const wordPanel = ce('div')
+    const wordPanel = ce('DIV')
     wordPanel.className = "box words"
-
+    const wordTitle = ce('H1')
+    wordTitle.innerText = 'Words'
+    wordTitle.className= 'panelTitle' 
+    wordPanel.append(wordTitle)
 
     const taskPanel = ce('DIV')
     taskPanel.className = "box tasks"
+    const taskTitle = ce('H1')
+    taskTitle.innerText = 'Tasks'
+    taskTitle.className= 'panelTitle' 
+    taskPanel.prepend(taskTitle)
 
     const taskCats = ce('DIV')
     taskCats.className = "category taskCats"
@@ -43,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     taskPanel.append(taskCats, taskList)
 
     document.body.append(top, wordPanel, taskPanel)
+    debugger
 
     function ce(ele){
         return document.createElement(ele)

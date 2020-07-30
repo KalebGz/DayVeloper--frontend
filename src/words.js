@@ -34,15 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function fetchWordCategories(){
         fetch(wordCatsUrl)
         .then(res => res.json())
-        .then(categories => {
+        .then(categories => {            
             numWords = categories.length
             categories.forEach(cat => renderCatBtn(cat))
-            })
+        })
     }
 
     function renderCatBtn(cat){
         const categoryBtn = ce('BUTTON')
         categoryBtn.innerText= cat.name
+        categoryBtn.className='category'
 
         categoryBtn.addEventListener('click', () => {
             numWords = cat.words.length
