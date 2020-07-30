@@ -28,7 +28,7 @@ class Weather{
         const sunset = ce('H3')
         sunset.innerText= `Sunrise: ${this.normalizeTime(this.sunset)}`
 
-        weatherPanel.append(temp, feelsLike, desc, sunrise, sunset)
+        weatherPanel.append(temp, desc, feelsLike, sunrise, sunset)
     }
 
     normalizeTime(date){

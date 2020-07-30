@@ -12,22 +12,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Top (weather + events)
     const top = ce('div')
-    top.className = "top"
+    top.className = "box top"
     const weatherDiv = ce('div')
     weatherDiv.className = 'weather'
+    let weatherTitle = ce('H1')
+    // weatherTitle.innerText = 'Weather'
+    // weather.className= 'panelTitle' 
+    // // weatherDiv.append(weatherTitle)
     const eventDiv = ce('div')
     eventDiv.className = 'events'
     top.append(weatherDiv, eventDiv)
 
     const wordPanel = ce('div')
-    wordPanel.className = "words"
+    wordPanel.className = "box words"
 
 
-    const taskPanel = ce('div')
-    taskPanel.className = "tasks"
+    const taskPanel = ce('DIV')
+    taskPanel.className = "box tasks"
+
+    const taskCats = ce('DIV')
+    taskCats.className = "category taskCats"
     const taskList = ce('DIV')
     taskList.className= 'taskList'
-    taskPanel.append(taskList)
+    taskPanel.append(taskCats, taskList)
 
     document.body.append(top, wordPanel, taskPanel)
 

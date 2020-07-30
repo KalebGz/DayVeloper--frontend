@@ -1,38 +1,114 @@
+@font-face {  
+    font-family: 'Montserrat Regular';  
+    src: url('Montserrat-Regular.ttf');
+    }
+
+body {
+    background-color: #252222; 
+    font-family: "Montserrat Regular"; 
+    
+    max-width: 1250px;
+    margin: auto;
+}
+
+h3 {
+    margin: 0;
+    display: inline-block;
+    line-height: 150%;
+}
+.inline{
+    margin: 0;
+    display: inline-block;
+    line-height: 150%;
+}
+
+.category{
+    text-align: center;
+    /* display: inline-block; */
+     /* margin: 0 auto; */
+}
+
+.edit {
+    
+    float: right;
+}
+
+.delete {
+    float: right;
+
+}
+
 .title {
     text-align: center;
+    color: white; 
+    font: bold 52px Helvetica, Arial, Sans-Serif;
+    text-shadow: 1px 1px #9ef5b1, 
+                 2px 2px #51ec5e, 
+                 3px 3px #32f319;
 }
-div.top {
-    border: 50px outset red;
+.title:hover { 
+    position: relative; 
+    top: -3px; 
+    left: -3px; 
+    text-shadow: 1px 1px #fe4902, 
+                 2px 2px #fe4902, 
+                 3px 3px #fe4902, 
+                 4px 4px #fe4902, 
+                 5px 5px #fe4902, 
+                 6px 6px #fe4902;
+ }
+ .panelTitle{
+    text-decoration: underline;
+ }
+
+.box {
+margin: 30px; 
+border-radius: 20px; 
+padding: 20px; 
+} 
+
+.top {
+    /* border: 50px outset red; */
     background-color: lightblue;    
     text-align: center;
     height: 200px;
     width: 90%;
 }
-div.words {
-    border: 50px outset red;
-    background-color: lightblue;    
-    text-align: center;
-    height: 200px;
-    width: 90%;
-}
-div.tasks {
-    border: 50px outset red;
-    background-color: lightblue;    
-    text-align: left;
-    height: 700px;
-    width: 90%;
-}
-div.weather{
+.weather{
     float: left;
     height: 200px;
-    width: 49.5%;
+    width: 49.4%;
     border: 3px outset black;
-    background-color: lightblue;    
+    background-color: lightblue; 
+    border-radius: 20px; 
+    
+    overflow: scroll; 
 }
-div.events{
+.events{
     float: right;
     height: 200px;
-    width: 49.5%; 
+    width: 49.4%; 
     border: 3px outset black;
+    background-color: lightblue; 
+    border-radius: 20px;   
+    padding: 20px,0px;
+
+    overflow: scroll;
+     
+}
+.words {
+    /* border: 50px outset red; */
     background-color: lightblue;    
+    text-align: center;
+    height: 200px;
+    width: 90%;
+}
+.tasks {
+    /* border: 50px outset red; */
+    background-color: lightblue;    
+    /* text-align: center; */
+    height: 300px;
+    width: 90%;
+
+    overflow: scroll;
 }

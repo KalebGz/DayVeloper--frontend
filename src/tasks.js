@@ -13,6 +13,7 @@ class Task{
 
         const h2 = ce('h2')
         h2.id= `task${this.id}`
+        h2.className = 'inline'
 
         if(this.description){
             h2.innerText= `${this.title}: ${this.description}`
@@ -123,6 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tasksUrl = 'http:/localhost:3000/api/v1/tasks'
     const taskPanel = qs('div.tasks')
     const taskList = qs('div.taskList')
+    const taskCats = qs('div.taskCats')
+    
 
     function fetchTaskCategories(cat){
         fetch(taskCatsUrl)
@@ -134,7 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.log(taskCat)
         taskCatBtn = ce('BUTTON')
         taskCatBtn.innerText= taskCat.name
-        taskPanel.prepend(taskCatBtn)
+        taskCatBtn.className= 'category'
+        taskCats.prepend(taskCatBtn)
 
         taskCatBtn.addEventListener('click', () => {
             taskCatUrl = `http:/localhost:3000/api/v1/task_categories/${taskCat.id}`
@@ -199,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input3.value= 'Create New Task'
         form.append(input3)
 
-        taskPanel.prepend(form)
+        taskPanel.append(form)
 
         form.addEventListener('submit', (e) => {
             e.preventDefault()

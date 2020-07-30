@@ -11,15 +11,16 @@ class Event{
         const eventDiv = ce('div')
         eventDiv.className= `event${this.id}`
 
-        const h2 = ce('h2')
-        h2.id= `event${this.id}`
+        const h3 = ce('h3')
+        h3.id= `event${this.id}`
         
         // const dateStr = this.notif_time.getFullYear()+'-'+(this.notif_time.getMonth()+1)+'-'+this.notif_time.getDate()
         // debugger
-        h2.innerText= `-${this.title} ON ${this.dateToStr()}`
+        h3.innerText= `-${this.title}, ${this.dateToStr()}`
 
         const editBtn = ce('button')
         editBtn.innerText = "EDIT"
+        editBtn.className = 'edit'
         editBtn.addEventListener('click', () => {
             const form = ce('FORM')
     
@@ -65,7 +66,7 @@ class Event{
                     this.title = event.title
                     this.notif_time = new Date (event.notif_time)
 
-                    qs(`h2#event${this.id}`).innerText=  `-${this.title} ON ${this.dateToStr()}`
+                    qs(`h3#event${this.id}`).innerText=  `-${this.title}, ${this.dateToStr()}`
                     // Hide form
                     form.remove()
                     
@@ -77,6 +78,7 @@ class Event{
 
         const deleteBtn = ce('button')
         deleteBtn.innerText = "DELETE"
+        deleteBtn.className = 'delete'
         
         deleteBtn.addEventListener('click', () => {
             const deletedId = this.id
@@ -85,7 +87,7 @@ class Event{
                 qs(`div.event${deletedId}`).remove()
               })
         })
-        eventDiv.append(h2, editBtn, deleteBtn)
+        eventDiv.append(h3, editBtn, deleteBtn)
         eventPanel.append(eventDiv)
         
         // debugger
