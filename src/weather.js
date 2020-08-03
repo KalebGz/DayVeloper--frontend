@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fetchWeather( zip_code){
-
+        // NOTE: REMOVED KEY FORM PORTAL
         let weatherUrl = `http://api.openweathermap.org/data/2.5/weather?zip=${zip_code},us&appid=ab302d3ff4c37a2f4de433477399b4e3`
 
         fetch(weatherUrl)
